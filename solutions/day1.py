@@ -1,38 +1,19 @@
-file1 = open('./inputs/day1.txt', 'r')
-lines = file1.readlines()
+from collections import defaultdict
+from heapq import heappush
 
+lines = [line.strip() for line in open('./inputs/day1.txt', 'r').readlines()]
 elfNum = 0
-newElf = True
-caloriesPerElf = {}
-for count, line in enumerate(lines):
+caloriesPerElf = defaultdict(int)
+topElves = []
 
-    l = line.strip()
-
-    if l == "":
-        newElf = True
+for line in lines:
+    if line == "":
         elfNum += 1
         continue
+    caloriesPerElf[elfNum] += int(line)
 
-    if newElf:
-        caloriesPerElf[elfNum] = int(l)
-        newElf = False
-    else:
-        caloriesPerElf[elfNum] += int(l)
+for calories in caloriesPerElf.values():
+    heappush(topElves, -calories)
 
-c1 = 0
-c2 = 0
-c3 = 0
-
-for elf, calories in caloriesPerElf.items():
-    if calories > c1:
-        c3 = c2
-        c2 = c1
-        c1 = calories
-    elif calories > c2:
-        c3 = c2
-        c2 = calories
-    elif calories > c3:
-        c3 = calories
-
-print(c1)
-print(c1+c2+c3)
+print(-topElves[0])
+print(-topElves[0]-topElves[1]-topElves[2])
