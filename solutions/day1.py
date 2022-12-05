@@ -2,6 +2,7 @@ from collections import defaultdict
 from heapq import heappush
 
 lines = [line.strip() for line in open('./inputs/day1.txt', 'r').readlines()]
+print(cols)
 elfNum = 0
 caloriesPerElf = defaultdict(int)
 topElves = []
